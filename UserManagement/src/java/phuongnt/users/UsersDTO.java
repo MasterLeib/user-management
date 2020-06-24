@@ -20,14 +20,15 @@ public class UsersDTO {
     private boolean status;
 
     public UsersDTO(String id, String password, String username, String email, String phone, String photo, String roleId, boolean status) {
-        this.id = id;
-        this.password = password;
-        this.username = username;
-        this.email = email;
-        this.phone = phone;
-        this.photo = photo;
-        this.roleId = roleId;
-        this.status = status;
+        setId(id);
+        setPassword(password);
+        setUsername(username);
+        setEmail(email);
+        setPhone(phone);
+        setPhoto(photo);
+        setRoleId(roleId);
+        setStatus(status);
+        
     }
 
     public String getId() {
@@ -86,6 +87,7 @@ public class UsersDTO {
         this.roleId = roleId;
     }
 
+
     public boolean isStatus() {
         return status;
     }
@@ -98,6 +100,7 @@ public class UsersDTO {
     public String toString() {
         return "UsersDTO{" + "id=" + id + ", password=" + password + ", username=" + username + ", email=" + email + ", phone=" + phone + ", photo=" + photo + ", roleId=" + roleId + ", status=" + status + '}';
     }
+    
     
     
     

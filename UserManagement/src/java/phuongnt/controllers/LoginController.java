@@ -7,16 +7,21 @@ package phuongnt.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import phuongnt.db.MyConnection;
+import sun.security.util.Password;
 
 /**
  *
  * @author USER
  */
-public class MainController extends HttpServlet {
+public class LoginController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -27,36 +32,12 @@ public class MainController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String LOGIN_PAGE = "login.html";
-    private static final String LOGIN_CONTROLLER ="LoginController";
-    private static final String HOME_PAGE = "home.jsp";
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
-        System.out.println("Main"+action);
-        String url = "";
-        try {
-            switch (action) {
-                case "LoginPage":
-                        url=LOGIN_PAGE;
-                        break;
-                case "LoginController":
-                    url=LOGIN_CONTROLLER;
-                    break;                   
-                case "HomePage":
-                    url=HOME_PAGE;
-                    break;
-                    
-                    
-                                
-                default:
-                    url = "";
-            }
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
-        }
+       String username = request.getParameter("txtUsername");
+       String password = request.getParameter("txtPassword");
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

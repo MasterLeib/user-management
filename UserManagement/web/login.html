@@ -12,11 +12,9 @@ and open the template in the editor.
     </head>
     <body>
         <h1>Login Page</h1>
-        <form action="MainController" method="POST">
-            Username:<input type="text" name="txtUsername" autofocus=""/>
-            <br/>
-            Password:<input type="password" name="txtPassword"/>
-            <br/>
+        <form action="MainController" method="GET">
+            Username:<input type="text" name="txtUsername"/><br/>
+            Password:<input type="password" name="txtPassword"/><br/>
             <input type="hidden" name="action" value="LoginController"/>
             <input type="submit" value="Login"/>
         </form>
