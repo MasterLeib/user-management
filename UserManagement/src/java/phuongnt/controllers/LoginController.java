@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import phuongnt.db.MyConnection;
+import phuongnt.users.UsersDAO;
 import sun.security.util.Password;
 
 /**
@@ -22,6 +23,7 @@ import sun.security.util.Password;
  * @author USER
  */
 public class LoginController extends HttpServlet {
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,9 +37,25 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       String username = request.getParameter("txtUsername");
-       String password = request.getParameter("txtPassword");
-       
+        String url = "FAIL";
+        try {
+            String username = request.getParameter("txtUsername");
+            String password = request.getParameter("txtPassword");
+            
+            UsersDAO dao = new UsersDAO();           
+            boolean isTrue = dao.checkLogin(username, password);
+            if(isTrue){
+                url="home.jsp";
+            }else{
+                url="login.jsp";
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally{
+            request.getRequestDispatcher(url).forward(request, response);
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
