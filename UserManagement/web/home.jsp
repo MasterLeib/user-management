@@ -18,7 +18,11 @@
             <input type="hidden" name="action" value="LogoutController"/>
         </form>
         <a href="MainController?action=ViewUsersController">Go to view_users.jsp</a><br/>
-        <a href="MainController?action=ViewRolesController">Go to view_roles.jsp</a>
+        <a href="MainController?action=ViewRolesController">Go to view_roles.jsp</a><br/>
+        <a href="MainController?action=ViewPromotionsController">Go to view_promotions.jsp</a><br/>
+        <a href="insert_user.jsp">Go to insert_user.jsp</a><br/>
+        <a href="delete_user.html">Go to delete_user.html</a><br/>
+        <a href="MainController?action=AdminViewUsersController">Go to admin_view_users</a>
     </body>
     
 </html>

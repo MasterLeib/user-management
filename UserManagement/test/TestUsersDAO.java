@@ -16,8 +16,8 @@ import phuongnt.users.UsersDTO;
  */
 public class TestUsersDAO {
     public static void main(String[] args) throws SQLException {
-        UsersDAO dao = new UsersDAO();       
-        ArrayList<UsersDTO> users = dao.getUsers();
+        UsersDAO dao = new UsersDAO();
+        ArrayList<UsersDTO> users = dao.getUsers(true);
         System.out.println(users);
         
         

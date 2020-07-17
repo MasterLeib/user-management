@@ -5,24 +5,20 @@
  */
 package phuongnt.test;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import phuongnt.db.MyConnection;
-import phuongnt.roles.RolesDAO;
-import phuongnt.roles.RolesDTO;
+import phuongnt.promotions.PromotionsDAO;
+import phuongnt.promotions.PromotionsDTO;
 
 /**
  *
  * @author USER
  */
-public class TestConnection {
-
+public class TestPromotion {
     public static void main(String[] args) throws SQLException {
-        RolesDAO dao = new RolesDAO();
-        ArrayList<RolesDTO> x = dao.getRoles();
-        System.out.println(x);
+        PromotionsDAO dao = new PromotionsDAO();
+        ArrayList<PromotionsDTO> promotion = dao.getPromotions();
+        System.out.println(promotion);
     }
 }

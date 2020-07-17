@@ -12,14 +12,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import phuongnt.roles.RolesDAO;
-import phuongnt.roles.RolesDTO;
+import phuongnt.promotions.PromotionsDAO;
+import phuongnt.promotions.PromotionsDTO;
 
 /**
  *
  * @author USER
  */
-public class ViewRolesController extends HttpServlet {
+public class ViewPromotionsController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,13 +33,12 @@ public class ViewRolesController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = "view_roles.jsp";
+        String url ="view_promotions.jsp";
         try {
-            RolesDAO dao = new RolesDAO();
-            ArrayList<RolesDTO> roles = dao.getRoles();
-            request.setAttribute("roles", roles);
+            PromotionsDAO dao = new PromotionsDAO();
+            ArrayList<PromotionsDTO> promotions = dao.getPromotions();
+            request.setAttribute("promotions", promotions);
         } catch (Exception e) {
-            e.printStackTrace();
         } finally{
             request.getRequestDispatcher(url).forward(request, response);
         }

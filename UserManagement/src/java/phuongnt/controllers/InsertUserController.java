@@ -12,14 +12,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import phuongnt.roles.RolesDAO;
-import phuongnt.roles.RolesDTO;
+import phuongnt.users.UsersDAO;
+import phuongnt.users.UsersDTO;
 
 /**
  *
  * @author USER
  */
-public class ViewRolesController extends HttpServlet {
+public class InsertUserController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,11 +33,18 @@ public class ViewRolesController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = "view_roles.jsp";
+        String url="ViewUsersController";
         try {
-            RolesDAO dao = new RolesDAO();
-            ArrayList<RolesDTO> roles = dao.getRoles();
-            request.setAttribute("roles", roles);
+            String id = request.getParameter("txtId");
+            String password = request.getParameter("txtPassword");
+            String email = request.getParameter("txtEmail");
+            String phone = request.getParameter("txtPhone");
+            String photo = request.getParameter("txtPhoto");
+            String roleId = request.getParameter("txtRole");
+            
+            UsersDAO dao = new UsersDAO();
+            boolean isSuccess = dao.insertUsers(id, password, phone, email, phone, photo, roleId);
+            
         } catch (Exception e) {
             e.printStackTrace();
         } finally{
