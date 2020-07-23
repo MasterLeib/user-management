@@ -40,6 +40,18 @@
         <servlet-name>AdminViewUsersController</servlet-name>
         <servlet-class>phuongnt.controllers.AdminViewUsersController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowUserController</servlet-name>
+        <servlet-class>phuongnt.controllers.ShowUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateUserController</servlet-name>
+        <servlet-class>phuongnt.controllers.UpdateUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchUsersController</servlet-name>
+        <servlet-class>phuongnt.controllers.SearchUsersController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -80,9 +92,16 @@
         <servlet-name>AdminViewUsersController</servlet-name>
         <url-pattern>/AdminViewUsersController</url-pattern>
     </servlet-mapping>
-    <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>
+    <servlet-mapping>
+        <servlet-name>ShowUserController</servlet-name>
+        <url-pattern>/ShowUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateUserController</servlet-name>
+        <url-pattern>/UpdateUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchUsersController</servlet-name>
+        <url-pattern>/SearchUsersController</url-pattern>
+    </servlet-mapping>
 </web-app>

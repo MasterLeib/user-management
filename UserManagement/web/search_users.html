@@ -6,17 +6,16 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Login Page</title>
+        <title>Search Users</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <h1>Login Page</h1>
+        <h1>Search By Name</h1>
         <form action="MainController" method="POST">
-            Id:<input type="text" name="txtId"/><br/>
-            Password:<input type="password" name="txtPassword"/><br/>
-            <input type="hidden" name="action" value="LoginController"/>
-            <input type="submit" value="Login"/>
+            Input name:<input type="text" name="txtUsername"><br/>            
+            <input type="submit" value="Search">
+            <input type="hidden" name="action" value="SearchUsersController">
         </form>
     </body>
 </html>

@@ -14,8 +14,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import phuongnt.db.MyConnection;
 import phuongnt.users.UsersDAO;
+import phuongnt.users.UsersDTO;
 import sun.security.util.Password;
 
 /**
@@ -38,14 +40,20 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "FAIL";
+        HttpSession session = request.getSession();
         try {
-            String username = request.getParameter("txtUsername");
+          
+            String id = request.getParameter("txtId");
             String password = request.getParameter("txtPassword");
             
             UsersDAO dao = new UsersDAO();           
-            boolean isTrue = dao.checkLogin(username, password);
+            boolean isTrue = dao.checkLogin(id, password);
+            UsersDTO user = dao.getUser(id);
+            String username = user.getUsername();
             if(isTrue){
                 url="home.jsp";
+                session.setAttribute("id", id);
+                session.setAttribute("username", username);
             }else{
                 url="login.jsp";
             }

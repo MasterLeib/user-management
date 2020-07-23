@@ -39,6 +39,18 @@
                     <td>${user.status}</td>
                 </tr>
                 </c:forEach>
+                <c:forEach items="${user}" var="user">
+                     <tr>
+                    <td>${user.id}</td>
+                    <td>${user.password}</td>
+                    <td>${user.username}</td>
+                    <td>${user.email}
+                    <td>${user.phone}</td>  
+                    <td>${user.photo}</td>
+                    <td>${user.roleId}</td>
+                </tr>
+
+                </c:forEach>
                     
                               
             </tbody>

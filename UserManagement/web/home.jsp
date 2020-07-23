@@ -12,7 +12,7 @@
         <title>Home</title>
     </head>
     <body>
-        <h1>Welcome Home</h1>
+        <h1>Welcome Home, ${sessionScope.username}</h1>
         <form action="MainController" method="POST">
             <input type="submit" value="Logout"/>
             <input type="hidden" name="action" value="LogoutController"/>
@@ -22,7 +22,9 @@
         <a href="MainController?action=ViewPromotionsController">Go to view_promotions.jsp</a><br/>
         <a href="insert_user.jsp">Go to insert_user.jsp</a><br/>
         <a href="delete_user.html">Go to delete_user.html</a><br/>
-        <a href="MainController?action=AdminViewUsersController">Go to admin_view_users</a>
+        <a href="MainController?action=AdminViewUsersController">Go to admin_view_users</a><br/>
+        <a href="input_user_id.html">Go to input_user_id.html</a><br/>
+        <a href="search_users.html">Go to search_users.jsp</a>
     </body>
     
 </html>

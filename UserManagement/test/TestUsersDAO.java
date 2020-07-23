@@ -9,19 +9,15 @@ import phuongnt.users.UsersDTO;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author USER
  */
 public class TestUsersDAO {
-    public static void main(String[] args) throws SQLException {
-        UsersDAO dao = new UsersDAO();
-        ArrayList<UsersDTO> users = dao.getUsers(true);
-        System.out.println(users);
-        
-        
-        
-        
-    }
+
+  public static void main(String[] args) throws SQLException {
+       UsersDAO dao = new UsersDAO();
+       ArrayList<UsersDTO> users = dao.searchUsers("scghsj");
+       System.out.println(users);
+  }
 }

@@ -27,6 +27,10 @@ public class MainController extends HttpServlet {
   private static final String INSERT_USER_CONTROLLER = "InsertUserController";
   private static final String DELETE_USER_CONTROLLER = "DeleteUserController";
   private static final String ADMIN_VIEW_USERS_CONTROLLER = "AdminViewUsersController";
+  private static final String SHOW_USER_CONTROLLER = "ShowUserController";
+  private static final String UPDATE_USER_CONTROLLER = "UpdateUserController";
+  private static final String SEARCH_USERS_CONTROLLER = "SearchUsersController";
+  
 
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -71,6 +75,14 @@ public class MainController extends HttpServlet {
         case "AdminViewUsersController":
           url = ADMIN_VIEW_USERS_CONTROLLER;
           break;
+        case "ShowUserController":
+          url = SHOW_USER_CONTROLLER;
+          break;
+        case "UpdateUserController":
+          url = UPDATE_USER_CONTROLLER;
+          break;
+        case "SearchUsersController":
+          url = SEARCH_USERS_CONTROLLER;
       }
     } catch (Exception e) {
       e.printStackTrace();

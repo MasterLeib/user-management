@@ -14,7 +14,7 @@
     <body>
         <h1>Login Page</h1>
         <form action="MainController" method="POST">
-            Username:<input type="text" name="txtUsername" value="${username}"/><br/>
+            Id:<input type="text" name="txtId"/><br/>
             Password:<input type="password" name="txtPassword" value="${password}"/><br/>
             <input type="hidden" name="action" value="LoginController"/>
             <input type="submit" value="Login"/>
