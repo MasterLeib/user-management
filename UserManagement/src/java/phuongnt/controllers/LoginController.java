@@ -56,14 +56,12 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("username", username);
             }else{
                 url="login.jsp";
-            }
-            
+            }            
         } catch (Exception e) {
             e.printStackTrace();
         } finally{
             request.getRequestDispatcher(url).forward(request, response);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

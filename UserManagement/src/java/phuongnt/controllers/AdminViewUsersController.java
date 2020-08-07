@@ -28,7 +28,7 @@ public class AdminViewUsersController extends HttpServlet {
     String url = "admin_view_users.jsp";
     try {
       UsersDAO dao = new UsersDAO();
-      ArrayList<UsersDTO> users = dao.getUsers(true);
+      ArrayList<UsersDTO> users = dao.getUsers(true, 0, 5);
       request.setAttribute("users", users);
       
     } catch (Exception e) {

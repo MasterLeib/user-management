@@ -18,6 +18,9 @@ public class RolesDTO {
         this.name = name;
     }
 
+  public RolesDTO() {
+  }
+    
     public String getId() {
         return id;
     }

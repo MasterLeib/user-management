@@ -36,7 +36,7 @@ public class ViewUsersController extends HttpServlet {
         String url = "view_users.jsp";
         try {
             UsersDAO dao = new UsersDAO();
-            ArrayList<UsersDTO> users = dao.getUsers(false);
+            ArrayList<UsersDTO> users = dao.getUsers(false, 5, 0);
             request.setAttribute("users", users);
 
         } catch (Exception e) {

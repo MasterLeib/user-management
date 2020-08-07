@@ -35,10 +35,7 @@ public class ShowUserController extends HttpServlet {
     String url ="show_user_to_update.jsp";
     try {
       String id = request.getParameter("txtId");
-      UsersDAO dao = new UsersDAO();
-      if(!dao.isValidUser(id)){
-        url = "index.html";
-      }
+      UsersDAO dao = new UsersDAO();            
       UsersDTO user = dao.getUser(id);
       request.setAttribute("user", user);
     } catch (Exception e) {

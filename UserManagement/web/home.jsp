@@ -24,7 +24,7 @@
         <a href="delete_user.html">Go to delete_user.html</a><br/>
         <a href="MainController?action=AdminViewUsersController">Go to admin_view_users</a><br/>
         <a href="input_user_id.html">Go to input_user_id.html</a><br/>
-        <a href="search_users.html">Go to search_users.jsp</a>
+        <a href="MainController?action=SearchUsersController">Go to search_users.jsp</a>
     </body>
     
 </html>

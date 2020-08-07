@@ -12,8 +12,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import phuongnt.roles.RolesDAO;
+import phuongnt.roles.RolesDTO;
 import phuongnt.users.UsersDAO;
 import phuongnt.users.UsersDTO;
+import phuongnt.utils.Utils;
 
 /**
  *
@@ -33,14 +36,32 @@ public class SearchUsersController extends HttpServlet {
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
-    String url="show_users.jsp";
+    String url = "show_users.jsp";
+    UsersDAO dao = new UsersDAO();
+    RolesDAO dao1 = new RolesDAO();
     try {
       String username = request.getParameter("txtUsername");
-      UsersDAO dao = new UsersDAO();
-      ArrayList<UsersDTO> users = dao.searchUsers(username);
+      String roleId = request.getParameter("roleId");
+      String pageAsString = request.getParameter("page");
+      int page = 1;
+      if (pageAsString != null) {
+        page = Integer.parseInt(pageAsString);
+      }
+
+      ArrayList<UsersDTO> users = dao.searchUsers(username, roleId, 5, page);
+      int totalOfItems = dao.countUsers(username, roleId);
+      int totalOfPages = Utils.convertToTotalPage(totalOfItems, 5);
+      ArrayList<RolesDTO> roles = dao1.getRoles();
+
+      request.setAttribute("page", page);
+      request.setAttribute("roleId", roleId);
+      request.setAttribute("txtUsername", username);
       request.setAttribute("users", users);
+      request.setAttribute("roles", roles);
+      request.setAttribute("totalOfPages", totalOfPages);
     } catch (Exception e) {
-    } finally{
+      e.printStackTrace();
+    } finally {
       request.getRequestDispatcher(url).forward(request, response);
     }
   }

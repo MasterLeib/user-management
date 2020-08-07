@@ -38,28 +38,35 @@ public class UsersDAO {
     return false;
   }
 
-  public ArrayList<UsersDTO> getUsers(boolean isAdmin) throws SQLException {
-
+  public ArrayList<UsersDTO> getUsers(boolean isAdmin, int limit, int page) throws SQLException {
     ArrayList<UsersDTO> users = new ArrayList<>();
-    String selectQuery = "Select id,password,username,email,phone,photo,role_id,status from Users";
-    if (!isAdmin) {
-      selectQuery = selectQuery + " where Status = 1 ";
-    }
+    String selectQuery = "Select id,password,username,email,phone,photo,role_id,status"
+            + " from Users"
+            + " ORDER BY Id"
+            + " OFFSET ? ROWS"
+            + " FETCH NEXT ? ROWS ONLY";
+//    if (!isAdmin) {
+//      selectQuery = selectQuery + " where Status = 1 ";
+//    }
     try (Connection conn = MyConnection.getMyConnection();
-            PreparedStatement selectStm = conn.prepareStatement(selectQuery);
-            ResultSet rs = selectStm.executeQuery();) {
-      while (rs.next()) {
-        String id = rs.getString("id");
-        String password = rs.getString("password");
-        String username = rs.getString("username");
-        String email = rs.getString("email");
-        String phone = rs.getString("phone");
-        String photo = rs.getString("photo");
-        String roleId = rs.getString("role_id");
-        boolean status = rs.getBoolean("status");
-        UsersDTO dto = new UsersDTO(id, password, username, email, phone, photo, roleId, status);
-        users.add(dto);
+            PreparedStatement selectStm = conn.prepareStatement(selectQuery);) {
+      selectStm.setInt(1, limit * page);
+      selectStm.setInt(2, limit);
+      try (ResultSet rs = selectStm.executeQuery();) {
+        while (rs.next()) {
+          String id = rs.getString("id");
+          String password = rs.getString("password");
+          String username = rs.getString("username");
+          String email = rs.getString("email");
+          String phone = rs.getString("phone");
+          String photo = rs.getString("photo");
+          String roleId = rs.getString("role_id");
+          boolean status = rs.getBoolean("status");
+          UsersDTO dto = new UsersDTO(id, password, username, email, phone, photo, roleId, status);
+          users.add(dto);
+        }
       }
+
     }
     return users;
   }
@@ -107,7 +114,7 @@ public class UsersDAO {
             PreparedStatement selectStm = conn.prepareStatement(selectQuery);) {
       selectStm.setString(1, id);
       try (ResultSet rs = selectStm.executeQuery();) {
-        while (rs.next()) {
+        if (rs.next()) {
           String password = rs.getString("password");
           String username = rs.getString("username");
           String email = rs.getString("email");
@@ -141,42 +148,84 @@ public class UsersDAO {
     return isSuccess;
   }
 
-  public boolean isValidUser(String id) throws SQLException {
-    String selectQuery = "Select status from Users where id = ?";
+  public ArrayList<UsersDTO> searchUsers(String keyword, String roleId, int limit, int page) throws SQLException {
+    ArrayList<UsersDTO> users = new ArrayList<>();
+    if (keyword == null) {
+      keyword = "";
+    }
+    boolean isValidRole = roleId != null && !roleId.equals("all");
+    String roleIdString = "";
+    if (isValidRole) {
+      roleIdString = " role_id = ? and ";
+    }
+    String selectQuery = "Select id, username, email, phone, photo, role_id,status"
+            + " from Users"
+            + " where "
+            + roleIdString
+            + " username like '%'+ ? + '%'"
+            + " ORDER BY Id"
+            + " OFFSET ? ROWS"
+            + " FETCH NEXT ? ROWS ONLY";
     try (Connection conn = MyConnection.getMyConnection();
             PreparedStatement selectStm = conn.prepareStatement(selectQuery);) {
-      selectStm.setString(1, id);
+      int index = 1;
+      if (isValidRole) {
+        selectStm.setString(index, roleId);
+        index++;
+      }
+      selectStm.setString(index, keyword);
+      selectStm.setInt(index + 1, limit * (page - 1));
+      selectStm.setInt(index + 2, limit);
       try (ResultSet rs = selectStm.executeQuery();) {
         while (rs.next()) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-  public ArrayList<UsersDTO> searchUsers(String keyword) throws SQLException{
-    ArrayList<UsersDTO> users = new ArrayList<>();
-    if(keyword == null){
-      return users;
-    }
-    String selectQuery = "Select id,password,username,email,phone,photo,role_id,status from Users where username like '%'+ ? + '%'";
-    try(Connection conn = MyConnection.getMyConnection(); 
-            PreparedStatement selectStm = conn.prepareStatement(selectQuery);){
-      selectStm.setString(1, keyword);
-      try(ResultSet rs = selectStm.executeQuery();){
-        while(rs.next()){
           String id = rs.getString("id");
-          String password = rs.getString("password");
+          String password = "";
           String username = rs.getString("username");
           String email = rs.getString("email");
           String phone = rs.getString("phone");
           String photo = rs.getString("photo");
-          String roleId = rs.getString("role_id");
-          UsersDTO user = new UsersDTO(id, password, username, email, phone, photo, roleId, true);
+          roleId = rs.getString("role_id");
+          boolean isActive = rs.getBoolean("status");
+          UsersDTO user = new UsersDTO(id, password, username, email, phone, photo, roleId, isActive);
           users.add(user);
         }
       }
     }
     return users;
   }
+
+  public int countUsers(String keyword, String roleId) throws SQLException {
+    int number = 0;
+    if (keyword == null) {
+      keyword = "";
+    }
+    boolean isValidRole = roleId != null && !roleId.equals("all");
+    String roleIdString = "";
+    if (isValidRole) {
+      roleIdString = " role_id = ? and ";
+    }
+    String selectQuery = ""
+            + " Select COUNT(id)"
+            + " from Users"
+            + " where "
+            + roleIdString
+            + " username like '%'+ ? + '%'";
+    try (Connection conn = MyConnection.getMyConnection();
+            PreparedStatement selectStm = conn.prepareStatement(selectQuery);) {
+      int index = 1;
+      if (isValidRole) {
+        selectStm.setString(index, roleId);
+        index++;
+      }
+      selectStm.setString(index, keyword);
+      try(ResultSet rs = selectStm.executeQuery()){
+        if(rs.next()){
+          number = rs.getInt(1);
+        }
+      }
+    }
+
+    return number;
+  }
+  
 }

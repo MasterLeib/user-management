@@ -1,8 +1,11 @@
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import phuongnt.roles.RolesDAO;
+import phuongnt.roles.RolesDTO;
 import phuongnt.users.UsersDAO;
 import phuongnt.users.UsersDTO;
+import phuongnt.utils.Utils;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,8 +19,7 @@ import phuongnt.users.UsersDTO;
 public class TestUsersDAO {
 
   public static void main(String[] args) throws SQLException {
-       UsersDAO dao = new UsersDAO();
-       ArrayList<UsersDTO> users = dao.searchUsers("scghsj");
-       System.out.println(users);
+       System.out.println(Utils.convertToTotalPage(6, 5));
+       
   }
 }

@@ -5,6 +5,10 @@
  */
 package phuongnt.users;
 
+import java.sql.SQLException;
+import phuongnt.roles.RolesDAO;
+import phuongnt.roles.RolesDTO;
+
 /**
  *
  * @author USER
@@ -47,7 +51,7 @@ public class UsersDTO {
   public String getPassword() {
     return password;
   }
-
+  
   public void setPassword(String password) {
     this.password = password;
   }
@@ -98,6 +102,12 @@ public class UsersDTO {
 
   public void setStatus(boolean status) {
     this.status = status;
+  }
+  
+  public String getRoleName() throws SQLException{
+    RolesDAO dao = new RolesDAO();
+    RolesDTO role = dao.getRole(roleId);
+    return role.getName();
   }
 
   @Override
